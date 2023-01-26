@@ -10,7 +10,7 @@
       nombre:"guayaba",
       precio:300,
       madura:true,
-      votos:reactive(0)
+      votos:ref(0)
     },
     {
       nombre:"banano",
@@ -31,7 +31,9 @@
       votos:ref(0)
     }
   ];
+  
   const carrito = ref([]);
+  const reseniaTxt = ref("")
 
   function aumentar(valor){valor.value++;};
   function reducir(valor){valor.value--;};
@@ -64,7 +66,7 @@
   <h1>{{ titulo.toUpperCase() }}</h1>
   <h2>Lista de Frutas</h2>
   <ul>
-    <template v-for="(fruta, index) in frutas" :key="fruta.nombre">
+    <span v-for="(fruta, index) in frutas" :key="fruta.nombre">
       <li v-if="fruta.madura">
         <ul >
           {{ index }} -
@@ -77,22 +79,19 @@
           <button @click="add(fruta)" :disabled="blockAdd(fruta)">Add</button>
         </ul>
       </li>
-    </template>
+    </span>
   </ul>
   <h2>Carrito</h2>
   <ul v-for="fruta in carrito">
     <li>{{ fruta.nombre }}s ({{ fruta.votos }})</li>
   </ul>
+  <h2>Reseña</h2>
+  <input v-model="reseniaTxt" type="text">
+  <p>{{ reseniaTxt }}</p>
 </template>
 
 <style>
-.positivo{
-  color: green;
-}
-.negativo{
-  color: red;
-}
-.zero{
-  color: tan;
-}
+.positivo{ color: green; }
+.negativo{ color: red; }
+.zero{ color: tan; }
 </style>
